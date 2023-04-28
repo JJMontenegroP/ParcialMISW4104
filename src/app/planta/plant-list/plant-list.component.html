@@ -1,0 +1,25 @@
+<p></p>
+<div class="container" style="height: 100%">
+  <div class="row" style="height: 100%">
+    <div class="col col-lg-8">
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre común</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Clima</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let plant of plantas$ | async">
+            <th scope="row">{{ plant.id }}</th>
+            <td>{{ plant.nombre_comun }}</td>
+            <td>{{ plant.tipo }}</td>
+            <td>{{ plant.clima }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
