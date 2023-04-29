@@ -2,11 +2,13 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { PlantaService } from './planta.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('Service: Planta', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PlantaService]
+      imports: [HttpClientModule],
+      providers: [PlantaService],
     });
   });
 

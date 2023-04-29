@@ -15,9 +15,11 @@ export class PlantListComponent implements OnInit {
 
   constructor(private plantaService: PlantaService) {}
 
-  ngOnInit() {
+  getInformaciopnPlanta() {
     this.plantas$ = this.plantaService.obtenerListadoPlantas();
+  }
 
+  contarTiposDePlantas() {
     this.plantas$.pipe(first()).subscribe((plantas) => {
       plantas.forEach((planta) => {
         if (planta.tipo === 'Interior') {
@@ -27,5 +29,10 @@ export class PlantListComponent implements OnInit {
         }
       });
     });
+  }
+
+  ngOnInit() {
+    this.getInformaciopnPlanta();
+    this.contarTiposDePlantas();
   }
 }
