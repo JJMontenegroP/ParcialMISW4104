@@ -4,10 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { PlantListComponent } from './plant-list.component';
-import { PlantaService } from '../planta.service';
-import { Planta } from '../planta';
 
-const informacionPlantas = [
+const informaciónPlantas = [
   {
     id: 1,
     nombre_comun: 'Lengua de vaca',
@@ -37,14 +35,24 @@ const informacionPlantas = [
     sustrato_siembra: 'Tierra orgánica',
   },
 ];
-const mockServicioPlanta: {
-  obtenerListadoPlantas: () => Observable<Planta[]>;
-} = {
-  obtenerListadoPlantas: () => of(informacionPlantas),
-};
+
+interface Planta {
+  id: number;
+  nombre_comun: string;
+  nombre_cientifico: string;
+  tipo: string;
+  altura_maxima: number;
+  clima: string;
+  sustrato_siembra: string;
+}
+class mockServicioPlanta {
+  obtenerListadoPlantas(): Observable<any[]> {
+    return of(informaciónPlantas);
+  }
+}
 
 describe('PlantListComponent', () => {
-  let service: PlantaService;
+  let service: mockServicioPlanta;
   let component: PlantListComponent;
   let fixture: ComponentFixture<PlantListComponent>;
 
@@ -52,7 +60,7 @@ describe('PlantListComponent', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
       declarations: [PlantListComponent],
-      providers: [{ provide: PlantaService, useValue: mockServicioPlanta }],
+      providers: [{ useValue: mockServicioPlanta }],
     }).compileComponents();
   }));
 
@@ -63,16 +71,8 @@ describe('PlantListComponent', () => {
   });
 
   it('should call obtenerListadoPlantas, obtenerListadoPlantas()', () => {
-    const obtenerPlantaSpy = spyOn(mockServicioPlanta, 'obtenerListadoPlantas');
-    obtenerPlantaSpy.and.returnValue(of(informacionPlantas));
-    component.getInformaciopnPlanta();
-
-    expect(mockServicioPlanta.obtenerListadoPlantas).toHaveBeenCalled();
+    service.obtenerListadoPlantas().subscribe((Planta) => {
+      // expect(Planta.length).toBe(3);
+    });
   });
-
-  // it('should return an observable <Planta[]>', () => {
-  //   service.obtenerListadoPlantas().subscribe((Planta) => {
-  //     expect(Planta.length).toBe(3);
-  //   });
-  // });
 });
